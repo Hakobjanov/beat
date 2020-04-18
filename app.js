@@ -8,6 +8,7 @@ class DrumKit {
     this.bitesAudio = document.querySelector(".bites-sound");
     this.index = 0; //track our track
     this.bpm = 150; //beat per monute
+    this.isPlayin = null;
   }
 
   activePad() {
@@ -47,9 +48,17 @@ class DrumKit {
   start() {
     console.log(this);
     const interval = (60 / this.bpm) * 1000;
-    setInterval(() => {
-      this.repeat();
-    }, interval);
+    //check if it is already playing
+    if (!this.isPlayin) {
+      this.isPlayin = setInterval(() => {
+        this.repeat();
+      }, interval);
+      clearInterval(test);
+    } else {
+      //removing the interval
+      clearInterval(this.isPlayin);
+      this.isPlayin = null;
+    }
   }
 }
 
